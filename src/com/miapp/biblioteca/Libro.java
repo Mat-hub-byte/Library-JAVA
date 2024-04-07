@@ -51,7 +51,7 @@ public class Libro {
         this.autor = autor;
     }
 
-    public String getISBN() {
+    public static String getISBN() {
         return ISBN;
     }
 
