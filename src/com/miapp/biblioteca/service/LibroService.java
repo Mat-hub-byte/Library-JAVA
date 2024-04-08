@@ -1,7 +1,5 @@
 package com.miapp.biblioteca.service;
-
 import com.miapp.biblioteca.Libro;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -27,18 +25,31 @@ public class LibroService {
     }
 
     //UPDATE
-    public void actualizarLibro(String newtitulo, String newautor, String ISBN, String newgenero){
+    public void actualizarAtributoLibro(String ISBN, String atributo, String nuevoValor) {
         boolean encontrado = false;
-        for(Libro libro: biblioteca){
-            if (libro.getISBN().equals(ISBN)){
-                libro.setTitulo(newtitulo);
-                libro.setAutor(newautor);
-                libro.setGenero(newgenero);
-                encontrado = true; // linea para indicar que se encontro el libro
-                break; // Finalizar la iteración una vez que se modifica el libro
+        for (Libro libro : biblioteca) {
+            if (libro.getISBN().equals(ISBN)) {
+                encontrado = true;
+                switch (atributo) {
+                    case "titulo":
+                        libro.setTitulo(nuevoValor);
+                        break;
+                    case "autor":
+                        libro.setAutor(nuevoValor);
+                        break;
+                    case "genero":
+                        libro.setGenero(nuevoValor);
+                        break;
+                    default:
+                        System.out.println("Atributo no válido.");
+                        return;
+                }
+                break;
             }
         }
-        if (!encontrado) {System.out.println("El libro con ISBN " + ISBN + " no se encontró en la biblioteca.");}
+        if (!encontrado) {
+            System.out.println("El libro con ISBN " + ISBN + " no se encontró en la biblioteca.");
+        }
     }
 
     //DELETE

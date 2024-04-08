@@ -1,7 +1,5 @@
 package com.miapp.biblioteca.service;
-
 import com.miapp.biblioteca.Usuario;
-
 import java.util.ArrayList;
 
 public class UsuarioService {
