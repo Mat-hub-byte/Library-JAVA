@@ -4,7 +4,7 @@ public class Libro {
     //ATRIBUTOS
     private String titulo;
     private String autor;
-    private String ISBN;
+    private static String ISBN;
     private String genero;
     private boolean disponible;
 
