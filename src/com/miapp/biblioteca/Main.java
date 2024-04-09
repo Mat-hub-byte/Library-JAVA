@@ -70,16 +70,19 @@ public class Main {
             do {
                 // Mostrar el menú principal
                 System.out.println("\n--- MENÚ PRINCIPAL ---");
-                System.out.println("1. Crear usuario");
-                System.out.println("2. Crear libro");
-                System.out.println("3. Mostrar todos los libros");
-                System.out.println("4. Mostrar todos los usuarios");
-                System.out.println("5. Actualizar libro por ISBN");
-                System.out.println("6. Eliminar libro por ISBN");
-                System.out.println("7. Actualizar usuario por ID");
-                System.out.println("8. Eliminar usuario por ID");
-                System.out.println("0. Salir");
-                System.out.println("------------------------------");
+                System.out.println("1.  Crear usuario");
+                System.out.println("2.  Crear libro");
+                System.out.println("3.  Mostrar todos los libros");
+                System.out.println("4.  Mostrar todos los usuarios");
+                System.out.println("5.  Actualizar libro por ISBN");
+                System.out.println("6.  Eliminar libro por ISBN");
+                System.out.println("7.  Actualizar usuario por ID");
+                System.out.println("8.  Eliminar usuario por ID");
+                System.out.println("9.  Prestar libro");
+                System.out.println("10. Devolucion de libro");
+                System.out.println("11. Mostrar libros disponibles");
+                System.out.println("0.  Salir");
+                System.out.println("----------------------------------");
                 System.out.print("Seleccione una opción: ");
 
                 // Leer la opción seleccionada por el usuario
@@ -184,6 +187,26 @@ public class Main {
                         System.out.print("Ingrese el ID del usuario que desea eliminar: ");
                         String idEliminar = scanner.nextLine();
                         usuarioService.eliminarUsuario(idEliminar);
+                        break;
+                    case 9:
+                        //prestamo de libro
+                        System.out.print("Ingrese el ISBN del LIBRO que desea prestar: ");
+                        String isbnPrestar = scanner.nextLine();
+                        libroService.Prestamo(isbnPrestar);
+                        break;
+                    case 10:
+                        //Devolucion de libro
+                        System.out.print("Ingrese el ISBN del LIBRO que desea devolver: ");
+                        String isbnDevolver = scanner.nextLine();
+                        libroService.Devolucion(isbnDevolver);
+                        for (Libro libro : libroService.obtenerTodaBiblioteca()) {
+                            System.out.println(libro);
+                        }
+                        break;
+                    case 11:
+                        //Mostrar de libros
+                        System.out.print("Libros disponibles");
+                        System.out.println(libroService.mostrarDispobibles());
                         break;
                     case 0:
                         // Salir del programa

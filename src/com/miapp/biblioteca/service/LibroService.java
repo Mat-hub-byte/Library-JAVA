@@ -1,9 +1,13 @@
 package com.miapp.biblioteca.service;
+
 import com.miapp.biblioteca.Libro;
+
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LibroService {
+    public static Object Prestamo;
     private ArrayList<Libro> biblioteca;
 
     public LibroService(ArrayList<Libro> biblioteca){
@@ -73,6 +77,34 @@ public class LibroService {
             }
         }
         return null;
+    }
+
+    public void Prestamo(String ISBN){
+        boolean encontrado = false;
+        for (Libro libro : biblioteca) {
+            if (libro.getISBN().equals(ISBN)){
+                libro.setDisponible(false);
+                System.out.println(libro.toString());
+            }
+
+        }
+
+    }
+    public void Devolucion(String ISBN){
+        boolean encontrado = false;
+        for (Libro libro : biblioteca) {
+            if (libro.getISBN().equals(ISBN) && !libro.isDisponible() ){
+                libro.setDisponible(true);
+                System.out.println(libro.toString());
+            }
+
+        }
+
+    }
+
+    public List<Libro> mostrarDispobibles(){
+        //filtra libros disponibles y los muestra
+        return biblioteca.stream().filter(libro -> libro.isDisponible() == true).toList();
     }
 
 
