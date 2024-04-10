@@ -23,13 +23,12 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro{" +
+        return "Libro: " +
                 "titulo='" + titulo + '\'' +
                 ", autor='" + autor + '\'' +
                 ", ISBN='" + ISBN + '\'' +
                 ", genero='" + genero + '\'' +
-                ", disponible=" + disponible +
-                '}';
+                ", disponible=" + disponible + '\n' ;
     }
 
 

@@ -1,14 +1,16 @@
 package com.miapp.biblioteca.service;
 
 import com.miapp.biblioteca.Libro;
+import com.miapp.biblioteca.Usuario;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LibroService {
     public static Object Prestamo;
-    private ArrayList<Libro> biblioteca;
+    private static ArrayList<Libro> biblioteca;
 
     public LibroService(ArrayList<Libro> biblioteca){
         this.biblioteca = biblioteca;
@@ -70,7 +72,7 @@ public class LibroService {
     }
 
     //BUSCAR POR ISBN
-    public Libro libroPorISBN(String ISBN) {
+    public static Libro libroPorISBN(String ISBN) {
         for (Libro libro : biblioteca) { // Agrega el nombre del tipo de objeto "Libro" antes de "libro"
             if (libro.getISBN().equals(ISBN)) {
                 return libro;
@@ -79,6 +81,32 @@ public class LibroService {
         return null;
     }
 
+
+
+    public void devolverLibro(Usuario usuario, Libro libro){
+
+        if (usuario.getLibrosPrestados().contains(libro)){
+            usuario.getLibrosPrestados().remove(libro);
+            libro.setDisponible(true);
+        } else {
+            System.out.println("el libro no correspone al usuario");
+        }
+
+    }
+
+
+
+    public  void pestarLibro(Usuario usuario, Libro libro){
+        if(libro.isDisponible()){
+
+            usuario.getLibrosPrestados().add(libro);
+            libro.setDisponible(false);
+        } else {
+            System.out.println("no estadisponible");
+        }
+    }
+
+    /*
     public void Prestamo(String ISBN){
         boolean encontrado = false;
         for (Libro libro : biblioteca) {
@@ -102,10 +130,23 @@ public class LibroService {
 
     }
 
-    public List<Libro> mostrarDispobibles(){
-        //filtra libros disponibles y los muestra
-        return biblioteca.stream().filter(libro -> libro.isDisponible() == true).toList();
+    */
+
+    //public List<Libro> mostrarDispobibles(){
+    //    //filtra libros disponibles y los muestra
+    //    return biblioteca.stream().filter(libro -> libro.isDisponible() == true).toList();
+    //}
+
+    public List<Libro> mostrarDispobibles() {
+        List<Libro> librosDisponibles = biblioteca.stream()
+                    .filter(libro -> libro.isDisponible())
+                    .collect(Collectors.toList());
+        if (((List<?>) librosDisponibles).isEmpty()) {
+            System.out.println("No hay libros disponibles");
+        }
+        return librosDisponibles;
     }
+
 
 
 }

@@ -1,8 +1,8 @@
-package com.miapp.biblioteca;
-
+package com.miapp.biblioteca.ui;
+import com.miapp.biblioteca.Libro;
+import com.miapp.biblioteca.Usuario;
 import com.miapp.biblioteca.service.LibroService;
 import com.miapp.biblioteca.service.UsuarioService;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -68,7 +68,6 @@ public class Main {
             int opcion;
 
             do {
-                // Mostrar el menú principal
                 System.out.println("\n--- MENÚ PRINCIPAL ---");
                 System.out.println("1.  Crear usuario");
                 System.out.println("2.  Crear libro");
@@ -87,7 +86,7 @@ public class Main {
 
                 // Leer la opción seleccionada por el usuario
                 opcion = scanner.nextInt();
-                scanner.nextLine(); // Limpiar el buffer de entrada
+                scanner.nextLine();
 
                 // Realizar la acción correspondiente según la opción seleccionada
                 switch (opcion) {
@@ -132,6 +131,7 @@ public class Main {
 
                         // Verificar si el libro existe
                         Libro libroActualizar = libroService.libroPorISBN(isbnActualizar);
+
                         if (libroActualizar != null) {
                             System.out.println("Libro encontrado: " + libroActualizar);
 
@@ -159,10 +159,12 @@ public class Main {
                                     System.out.print("Ingrese el nuevo género del libro: ");
                                     String nuevoGenero = scanner.nextLine();
                                     libroService.actualizarAtributoLibro(isbnActualizar, "genero", nuevoGenero);
+                                    System.out.println("Se Acutualizo el libro con exito");
                                     break;
                                 default:
                                     System.out.println("Opción inválida. No se realizará ninguna actualización.");
                                     break;
+
                             }
                         } else {
                             System.out.println("No se encontró ningún libro con el ISBN proporcionado.");
@@ -173,6 +175,7 @@ public class Main {
                         System.out.print("Ingrese el ISBN del libro que desea eliminar: ");
                         String isbnEliminar = scanner.nextLine();
                         libroService.eliminarLibro(isbnEliminar);
+                        System.out.print("Libro eliminado con exito");
                         break;
                     case 7:
                         // Actualizar un usuario por ID
@@ -181,46 +184,80 @@ public class Main {
                         System.out.print("Ingrese el nuevo nombre del usuario: ");
                         String nuevoNombre = scanner.nextLine();
                         usuarioService.actualizarUsuarui(nuevoNombre, idActualizar);
+                        System.out.print("Libro actualizado con exito");
                         break;
                     case 8:
                         // Eliminar un usuario por ID
                         System.out.print("Ingrese el ID del usuario que desea eliminar: ");
                         String idEliminar = scanner.nextLine();
                         usuarioService.eliminarUsuario(idEliminar);
+                        System.out.print("Usuario eliminado con exito");
                         break;
                     case 9:
-                        //prestamo de libro
-                        System.out.print("Ingrese el ISBN del LIBRO que desea prestar: ");
-                        String isbnPrestar = scanner.nextLine();
-                        libroService.Prestamo(isbnPrestar);
-                        break;
+                        //Prestamo de libro
+                        System.out.print("Ingrese el ID del usuario al que quiere prestar ");
+                        idUsuario = scanner.nextLine();
+                        Usuario usuarioPrestamo1 = usuarioService.buscarUsuarioUnico(idUsuario);
+                            if (usuarioPrestamo1 != null) {
+                                System.out.println("Ingrese el ISBN del libro a prestar");
+                                String isbnPrestamo = scanner.nextLine();
+                                Libro libroPrestamo = LibroService.libroPorISBN(isbnPrestamo);
+                                if (libroPrestamo != null) {
+
+                                    if (usuarioService.verificarDisponibilidad(libroPrestamo)) {
+                                        usuarioPrestamo1.pestarLibro(usuarioPrestamo1, libroPrestamo);
+                                    } else {
+                                        System.out.println("No correspondo el usuario");
+                                    }
+                                } else {
+                                    System.out.println("el usuario no se encontro");
+                                }
+                            }
+                            break;
                     case 10:
-                        //Devolucion de libro
-                        System.out.print("Ingrese el ISBN del LIBRO que desea devolver: ");
-                        String isbnDevolver = scanner.nextLine();
-                        libroService.Devolucion(isbnDevolver);
-                        for (Libro libro : libroService.obtenerTodaBiblioteca()) {
-                            System.out.println(libro);
+                        // Lógica para gestionar la devolución de libros
+                        System.out.print("Ingrese el ID del usuario que quiere devolver un libro: ");
+                        idUsuario = scanner.nextLine();
+                        Usuario usuarioDevolucion = usuarioService.buscarUsuarioUnico(idUsuario);
+                        if (usuarioDevolucion != null) {
+                            // Mostrar los libros prestados al usuario
+                            System.out.println("Libros prestados al usuario:");
+                            for (Libro libro : usuarioDevolucion.getLibrosPrestados()) {
+                                System.out.println(libro.getTitulo());
+                            }
+                            System.out.print("Ingrese el ISBN del libro que desea devolver: ");
+                            String isbnDevolucion = scanner.nextLine();
+                            Libro libroDevolucion = LibroService.libroPorISBN(isbnDevolucion);
+                            if (libroDevolucion != null) {
+                                // Verificar si el libro pertenece al usuario y devolverlo
+                                if (usuarioDevolucion.getLibrosPrestados().contains(libroDevolucion)) {
+                                    libroService.devolverLibro(usuarioDevolucion, libroDevolucion);
+                                    System.out.println("El libro se ha devuelto con éxito.");
+                                } else {
+                                    System.out.println("El libro no corresponde al usuario.");
+                                }
+                            } else {
+                                System.out.println("El libro no se encontró.");
+                            }
+                        } else {
+                            System.out.println("El usuario no se encontró.");
                         }
-                        break;
+                    break;
                     case 11:
                         //Mostrar de libros
                         System.out.print("Libros disponibles");
                         System.out.println(libroService.mostrarDispobibles());
                         break;
                     case 0:
-                        // Salir del programa
                         System.out.println("Saliendo del programa...");
                         break;
                     default:
-                        // Opción inválida
                         System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
                         break;
+                    }
                 }
-            } while (opcion != 0);
+                while (opcion != 0) ;
 
-            // Cerrar el scanner
-            scanner.close();
-
+                scanner.close();
+            }
     }
-}

@@ -22,10 +22,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "nombre='" + nombre + '\'' +
-                ", id='" + id + '\'' +
-                '}';
+        return "Usuario:" + " nombre='" + nombre + '\'' + ", id='" + id + '\n';
     }
 
 
@@ -52,4 +49,6 @@ public class Usuario {
         return librosPrestados;
     }
 
+    public void pestarLibro(Usuario usuarioPrestamo, Libro libroPrestamo) {
+    }
 }
