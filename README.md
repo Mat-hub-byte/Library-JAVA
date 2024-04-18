@@ -55,10 +55,12 @@
 ----------------------------------
 
 📋 Introducción:
+
 En la industria del desarrollo backend, tener un portafolio digital de calidad
 es esencial. 
 
 📌 Premisa
+
 El objetivo de este proyecto es desarrollar una aplicación de gestión de
 biblioteca en Java, utilizando conceptos de programación orientada a
 objetos. La aplicación permitirá a los usuarios administrar el inventario de
@@ -67,29 +69,32 @@ búsquedas en la colección de libros.
 
 📝 Interfaz de Usuario:
 
-● Interfaz de usuario que permita a los usuarios
-interactuar con la aplicación.
+Interfaz de usuario que permita a los usuarios y interactuar con la aplicación.
 
 🧱 Requisitos específicos:
-La aplicación deberá permitir las siguientes operaciones:
-1. Clases y Objetos:
-○ 📍 La clase Libro incluye atributos como título, autor, ISBN,
-género y disponibilidad.
-○ 📍 La clase Usuario incluye atributos como nombre,
-número de identificación y lista de libros prestados.
+
+Clases y Objetos:
+
+○ 📍 La clase Libro incluye atributos como título, autor, ISBN,género y disponibilidad.
+
+○ 📍 La clase Usuario incluye atributos como nombre,número de identificación y lista de libros prestados.
 
 Inventario de Libros:
-○ 📍 La aplicación permite la adición de nuevos libros al
-inventario.
+
+○ 📍 La aplicación permite la adición de nuevos libros al inventario.
 
 Préstamos y devoluciones:
+
 ○ 📍 Los usuarios pueden solicitar préstamos de libros.
+
 ○ 📍 Los usuarios pueden devolver los libros prestados.
 
-6. Interfaz de Usuario:
-○ 📍 La interfaz de usuario incluye opciones para agregar
-libros, solicitar préstamos, devolver libros y buscar libros.
+Interfaz de Usuario:
+
+○ 📍 La interfaz de usuario incluye opciones para agregar libros, solicitar préstamos, devolver libros y buscar libros.
+
 ○ 📍 La interfaz es intuitiva y fácil de usar.
 
 ⚙️ Requerimientos técnicos
+
 Java y git
