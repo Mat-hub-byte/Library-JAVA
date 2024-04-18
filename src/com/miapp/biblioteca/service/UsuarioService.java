@@ -1,6 +1,7 @@
 package com.miapp.biblioteca.service;
-import com.miapp.biblioteca.Libro;
+
 import com.miapp.biblioteca.Usuario;
+
 import java.util.ArrayList;
 
 public class UsuarioService {
@@ -61,7 +62,4 @@ public class UsuarioService {
         return  null;
     }
 
-    public static boolean verificarDisponibilidad(Libro libro) {
-        return libro.isDisponible();
-    }
 }

@@ -147,6 +147,7 @@ public class LibroService {
         return librosDisponibles;
     }
 
-
-
+    public static boolean verificarDisponibilidad(Libro libro) {
+        return libro.isDisponible();
+    }
 }

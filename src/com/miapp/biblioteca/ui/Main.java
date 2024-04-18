@@ -204,10 +204,11 @@ public class Main {
                                 Libro libroPrestamo = LibroService.libroPorISBN(isbnPrestamo);
                                 if (libroPrestamo != null) {
 
-                                    if (usuarioService.verificarDisponibilidad(libroPrestamo)) {
-                                        usuarioPrestamo1.pestarLibro(usuarioPrestamo1, libroPrestamo);
+                                    if (libroService.verificarDisponibilidad(libroPrestamo)) {
+                                        libroService.pestarLibro(usuarioPrestamo1, libroPrestamo);
+                                        System.out.println("Prestamo exitoso el libro sera prestado a " + usuarioPrestamo1.getNombre());
                                     } else {
-                                        System.out.println("No correspondo el usuario");
+                                        System.out.println("Libro no esta disponible");
                                     }
                                 } else {
                                     System.out.println("el usuario no se encontro");
